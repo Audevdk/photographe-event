@@ -1,1 +1,5 @@
-bonjour à tous
+<?php get_header() ?>
+
+
+
+<?php get_footer() ?>
