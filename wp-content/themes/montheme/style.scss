@@ -1,0 +1,45 @@
+ /*
+ Theme Name: montheme 
+ */
+/*variable pour definir les couleurs*/
+$black: #000000;
+$rouge: #E00000;
+$grismeduim: #D8D8D8;
+$rose: #FE5858;
+$bleufonce: #313144;
+$grislight: #E5E5E5;
+$roselight: #FFD6D6;
+$gris: #C4C4C4;
+
+/*css general*/
+ body{
+  font-family: 'Space-Mono';
+  color:$black;
+ }
+ ul{
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+}
+li a{
+  text-decoration: none;
+  color:$black;
+}
+
+/*header */
+.header{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 555px;
+}
+/*footer*/
+.footer{
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+  justify-content: center;
+}
+
+ 
