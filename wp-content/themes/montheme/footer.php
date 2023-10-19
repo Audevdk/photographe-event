@@ -9,7 +9,7 @@ wp_nav_menu(
 <p>TOUS DROITS RESERVES</p>
 
 
-<?php get_template_part('<template-parts/modale');?>
+<?php get_template_part('template-parts/modale');?>
 <?php wp_footer() ?>
 </footer>
 </body>

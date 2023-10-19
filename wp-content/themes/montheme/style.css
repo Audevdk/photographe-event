@@ -34,4 +34,108 @@ li a {
   flex-direction: row;
   gap: 50px;
   justify-content: center;
+}
+
+.modal-container {
+  /* display: none; */
+  visibility: hidden;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  transition: visibility 0.4s;
+  border: solid #000000;
+}
+
+.modal-container.active {
+  /* display: block; */
+  visibility: visible;
+}
+.modal-container.active form.wpcf7-form.init {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.overlay {
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(51, 51, 51, 0.8274509804);
+  transition: opacity 0.4s 0.2s ease-out;
+}
+
+.modal-container.active .overlay {
+  opacity: 1;
+  transition: opacity 0.4s ease-out;
+}
+
+.modal {
+  opacity: 0;
+  width: 95%;
+  max-width: 500px;
+  min-width: 300px;
+  background: #fff;
+  border: solid 5px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, calc(-50% - 50px));
+  transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+  padding-top: 10px;
+}
+
+.modal-container.active .modal {
+  opacity: 1;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.4s 0.2s ease-out, transform 0.4s 0.2s ease-out;
+}
+
+.header-modal {
+  width: 100%;
+}
+
+form.wpcf7-form.init {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.wpcf7-form-control.wpcf7-submit.has-spinner {
+  border-radius: 5px !important;
+  background: #D8D8D8;
+  display: flex;
+  width: 280px;
+  height: 55px;
+  padding: 9px 0px;
+  justify-content: center;
+  align-items: center;
+  border: 0px;
+  text-align: center;
+  line-height: 37px;
+}
+
+.wpcf7-form-control.wpcf7-text.wpcf7-validates-as-required {
+  border-radius: 5px;
+  width: 280px;
+  height: 50px;
+  border-color: #C4C4C4;
+}
+
+.wpcf7-form-control.wpcf7-textarea {
+  border-radius: 5px;
+  width: 280px;
+  height: 120px;
+  border-color: #C4C4C4;
+}
+
+label {
+  font-family: "Poppins";
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 18px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #313144;
 }/*# sourceMappingURL=style.css.map */

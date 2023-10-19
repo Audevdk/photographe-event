@@ -21,5 +21,6 @@ wp_nav_menu(
     'container'=> 'ul', //evite la div
     'menu_class'=> 'header-menu', //ajout d'une classe personnalisée
 ));?>
+
 </header>
 <?php wp_body_open(); ?>
