@@ -57,6 +57,13 @@ class Bir_optimize_functions extends Bir_extends_functions {
             if ( stripos($path_attached,'.gif') !== false) {
                 $resize = !Bir_functions::op_gif_animated($path_attached);
             }
+             /**
+             * @since 2.0.1 
+             * I don't compress svg
+             */
+            if ( stripos($path_attached,'.svg') !== false) {
+                $resize = false;
+            }
 
 
             if (!$resize) return false;
@@ -140,6 +147,10 @@ class Bir_optimize_functions extends Bir_extends_functions {
                 return $img;
             }
         } else {
+            if (substr($path_attached, -4) == '.svg') {
+                self::$last_error = "";
+                return false;
+            } 
             self::$last_error = "ERROR! invalid_image";
             return new \WP_Error('invalid_image');
         }

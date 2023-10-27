@@ -73,7 +73,14 @@ class Bir_loader_upload {
             $resize = $ris_filter;
         }
 
-       if (substr($file['name'], -4) == '.gif' || $file["type"] == 'image/gif') {
+        if (substr($file['name'], -4) == '.gif' || $file["type"] == 'image/gif') {
+            $resize = false;
+        }
+        /**
+         * @since 2.0.1
+         * I don't compress svg
+         */
+        if (substr($file['name'], -4) == '.svg' || stripos($file["type"], 'svg') !== false) {
             $resize = false;
         }
         self::$original_image_name = $file['name'];

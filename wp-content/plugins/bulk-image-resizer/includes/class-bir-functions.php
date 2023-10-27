@@ -78,6 +78,15 @@ class Bir_functions
 					$result['msg'] = "Animated gif images are not resizable";
 				}
 			}
+            /**
+             * @since 2.0.1
+             * I don't compress svg
+             */
+            if ( stripos($path_img,'.svg') !== false) {
+                $result['show_btn']= false;
+                $result['is_valid'] = false;
+                $result['msg'] = "SVG images are not resizable";
+            }
 		}
 		return $result;
 	}

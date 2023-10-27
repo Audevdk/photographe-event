@@ -1,13 +1,13 @@
-=== Bulk images ===
+=== Bulk images: Resize, optimize, webp, rename ===
 Contributors: giuliopanda 
 Donate link: https://www.paypal.com/donate/?cmd=_donations&business=giuliopanda%40gmail.com&item_name=wordpress+plugin+Bulk+image+resizer
-Tags: convert,image,optimize,resize,webp
+Tags: resize,webp,convert,pictures,optimize
 Requires at least: 5.3
 Tested up to: 6.3
 Requires PHP: 7.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Stable tag: 2.0.0
+Stable tag: 2.0.1
 
 Resize, optimize, convert to webp and rename images on your website. 
 
@@ -101,6 +101,9 @@ They assume no responsibility for any malfunctions or loss of information result
 2. 
 
 == Changelog ==
+
+= 2.0.1 2023-10-24 =
+* Fixed: now svg images are not optimized 
 
 = 2.0.0 2023-09-08 =
 * Feat. rewritten the whole plugin!

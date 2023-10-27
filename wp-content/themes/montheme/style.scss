@@ -11,11 +11,60 @@ $grislight: #E5E5E5;
 $roselight: #FFD6D6;
 $gris: #C4C4C4;
 
+/*polices*/
+@font-face {
+  font-family: 'space_mono_normal';
+  src: url('fonts/SpaceMono-Regular.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'space_mono_italic_400';
+  src: url('fonts/SpaceMono-Italic.ttf');
+   font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'space_mono_italic_700';
+  src: url('fonts/SpaceMono-BoldItalic.ttf');
+  font-weight: 700;
+  font-style: italic;
+}
+
+
+@font-face {
+  font-family: 'space_mono_bold';
+  src: url('fonts/SpaceMono-Bold.ttf');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'poppins_light';
+  src: url('fonts/Poppins-Light.ttf');
+  font-weight: 300;
+  font-style: normal;
+}
+
 /*css general*/
- body{
-  font-family: 'Space-Mono';
-  color:$black;
- }
+
+ h1 {
+  font-family: 'space_mono_italic_700', sans-serif;
+  font-size: 3vw;
+}
+
+h2 {
+  font-family: 'space_mono_italic_400', sans-serif;
+  font-size: 2vw;
+}
+
+h3 {
+  font-family: 'space_mono_normal', sans-serif;
+  font-size: 1vw;
+}
+
  ul{
   
   list-style: none;
@@ -158,4 +207,22 @@ line-height: 18px;
 letter-spacing: 0em;
 text-align: left;
 color:$bleufonce;
+}
+
+
+.description-photo{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.entry-content{
+  font-family: 'space_mono_normal';
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+.entry-header{
+  position: absolute;
+  bottom: 0px;
+  left: 400px;
 }

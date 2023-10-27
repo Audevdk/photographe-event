@@ -39,7 +39,7 @@ class Bir_config_fn {
      * @return string Html
      */
     static function html_select_quality($val = BIR_QUALITY_MEDIUM) {
-        $dim = array(BIR_QUALITY_LOW=>'LOW', BIR_QUALITY_MEDIUM=>'MEDIUM', BIR_QUALITY_HIGHT=>'HIGHT');
+        $dim = array(BIR_QUALITY_LOW=>'LOW', BIR_QUALITY_MEDIUM=>'MEDIUM', BIR_QUALITY_HIGHT=>'HIGH');
         ?>
         <select name="quality" id="settingQuality" class="js-running-input-disable">
         <?php
