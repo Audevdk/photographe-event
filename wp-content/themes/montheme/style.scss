@@ -49,6 +49,11 @@ $gris: #C4C4C4;
 }
 
 /*css general*/
+body {
+  margin: auto !important;
+  width: auto;
+  background-color: rgb(255, 255, 255);
+}
 
  h1 {
   font-family: 'space_mono_italic_700', sans-serif;
@@ -83,6 +88,7 @@ li a{
 }
 
 /*header */
+
 .header{
   display: flex;
   flex-direction: row;

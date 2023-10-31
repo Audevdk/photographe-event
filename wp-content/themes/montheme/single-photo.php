@@ -62,28 +62,30 @@ Template Name: CPT perso photos
 
                         <?php the_content(); ?> <!-- Affiche le contenu de l'article -->
                         </div>
-                        <!-- Bouton pour ouvrir la popup -->
+                        <section class="section_post_contact_nav">
+                <div class="post_contact_text">
+                    <p>Cette photo vous intéresse ?</p>
                         <button class="open-popup"
                             data-reference="<?php echo esc_attr(get_field('reference')); ?>">Contact</button>
                     
 
                     <!-- Ajout des miniatures et boutons de pagination -->
                     <div class="pagination-container">
-                        <!-- conteneur pour les miniatures et les boutons de pagination -->
+                        
                         <?php
-                        $previous_photo = get_previous_post(); // Récupère l'article précédent 
-                        $next_photo = get_next_post(); // Récupère l'article suivant 
+                        $previous_photo = get_previous_post(); 
+                        $next_photo = get_next_post(); 
                         ?>
 
-                        <?php if ($previous_photo): ?> <!--  vérifie si un article précédent existe -->
+                        <?php if ($previous_photo): ?>
 
                             <a href="<?php echo get_permalink($previous_photo->ID); ?>"
                                 class="previous-photo thumbnail-preview">
-                                <!-- lien vers précédent avec la classe "previous-photo" et "thumbnail-preview" -->
+                               
                                 <span class="pagination-label">&larr;</span>
-                                <!-- Affiche une fleche pointant vers la gauche -->
+                           
                                 <?php echo get_the_post_thumbnail($previous_photo->ID, 'thumbnail'); ?>
-                                <!-- Affiche la miniature  précédent avec la taille "thumbnail" -->
+                                
                             </a>
                         <?php endif; ?>
 
@@ -100,30 +102,47 @@ Template Name: CPT perso photos
                     <?php get_template_part('templates_parts/photo_block'); ?>
                     <!-- Inclut le template pour les photos apparentées -->
             </article>
-
-                    <?php endwhile; ?>
-
-                    </main><!-- #main -->
-</div><!-- #primary -->
-
-<!-- Script jQuery pour ouvrir la modale et préremplir le champ "RÉF. PHOTO" -->
-<script>
-    jQuery(document).ready(function (jQuery) {
-        jQuery('.open-popup').click(function () {
-            var reference = jQuery(this).data('reference');
-            // Ouvrir la modale 
-            jQuery('#myModal').show();
-
-            // Préremplir le champ "RÉF. PHOTO" du formulaire de contact
-            jQuery('#ref_photo').val(reference);
-
-        });
-    });
-</script>
-
-
-
-
+            <section class="section_post_other_imgs">
+                <div class="post_other_text">
+                    <h3>Vous aimerez aussi</h3>
+                </div>
+                <article class="post_other_imgs_container">
+                    <?php
+                    // Category recovery 
+                    $current_category = get_field('categories');
+                    // definition of arguments
+                    $args = array(
+                        'post_type' => 'photo',
+                        'posts_per_page' => 2,
+                        'post__not_in' => [get_the_ID()],
+                        'tax_query' => array(
+                            array(
+                                'taxonomy' => 'categorie',
+                                'field'    => 'slug',
+                                'terms' => $current_category,
+                            ),
+                        ),
+                    );
+                    // Définition / Execution of wp query
+                    $query = new WP_Query($args);
+                    // Wp query execution loop
+                    while ($query->have_posts()) : $query->the_post();
+                        $post_url = get_permalink();
+                    ?>
+                        <!-- Template Post Card -->
+                        <?php get_template_part('template-parts/photo_block'); ?>
+                    <?php endwhile;
+                    wp_reset_postdata() ?>
+                </article>
+            </section><!-- .section_post_other_imgs -->
+            <section class="section_btn_load_all_imgs">
+                <div class="btn_load_all_imgs">
+                    <span>Toutes les Photos</span>
+                </div>
+            </section><!-- section_btn_load_all_imgs -->
+        </main><!-- #main_single_photo_page -->
+<?php endwhile;
+ ?>
 
 <?php get_footer(); ?> <!-- Inclut le footer -->
 

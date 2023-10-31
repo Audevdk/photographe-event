@@ -34,6 +34,12 @@ Theme Name: montheme
   font-style: normal;
 }
 /*css general*/
+body {
+  margin: auto !important;
+  width: auto;
+  background-color: rgb(255, 255, 255);
+}
+
 h1 {
   font-family: "space_mono_italic_700", sans-serif;
   font-size: 3vw;
