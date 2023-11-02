@@ -3,155 +3,82 @@
 Template Name: CPT perso photos
 */
 ?>
+
 <?php get_header(); ?>
+<main class="main_single">
+	<?php if (have_posts()) : ?>
+		<?php while (have_posts()) : the_post(); ?>
+			<div class="photo">
+				<div class="info-photo">
 
-<div id="primary" class="content-area">
-    <main id="main" class="site-main" role="main">
+					<h1 class="photo-title"><?php the_title(); ?></h1>
+					<p>Référence : <span id="ref-photo"> <?php echo get_field('reference_photo'); ?></span></p>
+					<p>Categorie : <?php echo strip_tags(get_the_term_list($post->ID, 'categorie')); ?></p>
+					<p>Format : <?php echo strip_tags(get_the_term_list($post->ID, 'format')); ?></p>
+					<p>Type : <?php echo get_field('type'); ?></p>
+					<p>Année :<?php the_date(' Y'); ?></p>
 
-        <?php
-        while (have_posts()):
-            the_post();
-            ?>
+				</div>
+				<div class="photo-content">
+					<?php the_content(); ?>
+				</div>
+			</div>
+			<div class="partie_2">
 
-            <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-            
-                <header class="entry-header ">
-                    <h2>
-                        <?php the_title(); ?> <!-- Affiche le titre de l'article -->
-                    </h2>
-                </header>
-                <div class="description-photo">
-                <div class="photo-container">
-                            <?php the_post_thumbnail('full'); ?> <!-- Affiche l'image à la taille "medium" -->
-                            </div>
-                    <div class="entry-content">
-                        
-                        <p><strong>Référence :</strong>
-                            <?php echo get_field('reference_photo'); ?> <!-- Affiche le champ "reference" du CPT -->
-                        </p>
-                        <?php
-                        $categories = get_the_terms(get_the_ID(), 'categorie');
-                        if ($categories && !is_wp_error($categories)) {
-                            echo '<p><strong>Categories :</strong> ';
-                            foreach ($categories as $category) {
-                                echo $category->name . ' '; // Affiche les catégories du CPT
-                            }
-                            echo '</p>';
-                        }
-                        ?>
+				<p><h3>Cette photo vous intéresse ?</h3>
+					<input type="button" value="Contact" id="modaleContactSingle">
 
-                        <?php
-                        $formats = get_the_terms(get_the_ID(), 'format');
-                        if ($formats && !is_wp_error($formats)) {
-                            echo '<p><strong>Formats :</strong> ';
-                            foreach ($formats as $format) {
-                                echo $format->name . ' '; // Affiche les formats du CPT
-                            }
-                            echo '</p>';
-                        }
-                        ?>
-                        <p><strong>Type :</strong>
-                            <?php echo get_field('type'); ?> <!-- Affiche le champ "type" du CPT -->
-                        </p>
-                        <p><strong>Année :</strong>
-                            <?php echo get_the_date('Y'); ?> <!-- Affiche le champ "annee" du CPT -->
-                        </p>
-</div>
+				</p>
 
-                      
+				<div class="site-navigation ">
 
-                        <?php the_content(); ?> <!-- Affiche le contenu de l'article -->
-                        </div>
-                        <section class="section_post_contact_nav">
-                <div class="post_contact_text">
-                    <p>Cette photo vous intéresse ?</p>
-                        <button class="open-popup"
-                            data-reference="<?php echo esc_attr(get_field('reference')); ?>">Contact</button>
-                    
+					<div class="site-navigation-prev">
+						<?php
+						$prev_post = get_previous_post();
+						if ($prev_post) {
+							$prev_title = strip_tags(str_replace('"', '', $prev_post->post_title));
+							$prev_post_id = $prev_post->ID;
+							echo '<a rel="prev" href="' . get_permalink($prev_post_id) . '" title="' . $prev_title . '" class="previous_post">';
 
-                    <!-- Ajout des miniatures et boutons de pagination -->
-                    <div class="pagination-container">
-                        
-                        <?php
-                        $previous_photo = get_previous_post(); 
-                        $next_photo = get_next_post(); 
-                        ?>
+						?>
+							<div><?php echo get_the_post_thumbnail($prev_post_id); ?></div>
+						<?php
 
-                        <?php if ($previous_photo): ?>
+						echo '<img class="flecheGauche" src="' . get_stylesheet_directory_uri() . '/assets/Line7.png" alt="fleche_gauche" ></a>';
+						}
+						?>
+					</div>
+					<div class="img-card dynamic-image"><?php the_post_thumbnail(); ?></div>
+					<div class="site-navigation-next">
 
-                            <a href="<?php echo get_permalink($previous_photo->ID); ?>"
-                                class="previous-photo thumbnail-preview">
-                               
-                                <span class="pagination-label">&larr;</span>
-                           
-                                <?php echo get_the_post_thumbnail($previous_photo->ID, 'thumbnail'); ?>
-                                
-                            </a>
-                        <?php endif; ?>
+						<?php
+						$next_post = get_next_post();
+						if ($next_post) {
+							$next_title = strip_tags(str_replace('"', '', $next_post->post_title));
+							$next_post_id = $next_post->ID;
+							echo  '<a rel="next" href="' . get_permalink($next_post_id) . '" title="' . $next_title . '" class="next_post">';
 
-                        <?php if ($next_photo): ?> <!--  vérifie si un article suivant existe -->
-                            <a href="<?php echo get_permalink($next_photo->ID); ?>" class="next-photo thumbnail-preview">
-                                <!--  lien vers l'article suivant  -->
-                                <span class="pagination-label">&rarr;</span>
-                                <!-- Affiche une fleche pointant vers la droite -->
-                                <?php echo get_the_post_thumbnail($next_photo->ID, 'thumbnail'); ?>
-                                <!-- Affiche la miniature de l'article suivant avec la taille "thumbnail" -->
-                            </a>
-                        <?php endif; ?>
-                    </div>
-                    <?php get_template_part('templates_parts/photo_block'); ?>
-                    <!-- Inclut le template pour les photos apparentées -->
-            </article>
-            <section class="section_post_other_imgs">
-                <div class="post_other_text">
-                    <h3>Vous aimerez aussi</h3>
-                </div>
-                <article class="post_other_imgs_container">
-                    <?php
-                    // Category recovery 
-                    $current_category = get_field('categories');
-                    // definition of arguments
-                    $args = array(
-                        'post_type' => 'photo',
-                        'posts_per_page' => 2,
-                        'post__not_in' => [get_the_ID()],
-                        'tax_query' => array(
-                            array(
-                                'taxonomy' => 'categorie',
-                                'field'    => 'slug',
-                                'terms' => $current_category,
-                            ),
-                        ),
-                    );
-                    // Définition / Execution of wp query
-                    $query = new WP_Query($args);
-                    // Wp query execution loop
-                    while ($query->have_posts()) : $query->the_post();
-                        $post_url = get_permalink();
-                    ?>
-                        <!-- Template Post Card -->
-                        <?php get_template_part('template-parts/photo_block'); ?>
-                    <?php endwhile;
-                    wp_reset_postdata() ?>
-                </article>
-            </section><!-- .section_post_other_imgs -->
-            <section class="section_btn_load_all_imgs">
-                <div class="btn_load_all_imgs">
-                    <span>Toutes les Photos</span>
-                </div>
-            </section><!-- section_btn_load_all_imgs -->
-        </main><!-- #main_single_photo_page -->
-<?php endwhile;
- ?>
+						?>
+							<div><?php echo get_the_post_thumbnail($next_post_id); ?></div>
+						<?php
 
-<?php get_footer(); ?> <!-- Inclut le footer -->
+						echo '<img  src="' . get_stylesheet_directory_uri() . '/assets/Line6.png" alt="fleche_droit" ></a>';
+						}
+						?>
 
-</body>
+					</div>
+				</div>
+			</div>
+		<?php endwhile; ?>
+	<?php endif; ?>
+	<div class="partie_3">
+		<h2>VOUS AIMEREZ AUSSI</h2>
+		<div id="photosapp">
+			<?php get_template_part('template-parts/photo-block', get_post_format()); ?>
+		</div>
+		<a href="<?php echo home_url() ?>"><button id="lienAcc">Toutes les photos </button></a>
+	</div>
 
-</html> <!-- Fin du document HTML -->             
+</main>
 
-                     
-
-                  
-
-  
+<?php get_footer(); ?>

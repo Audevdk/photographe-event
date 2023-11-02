@@ -1,60 +1,38 @@
 <?php
-// Récupère les catégories de la photo actuelle
-$categories = get_the_terms(get_the_ID(), 'categorie_photo');
-
-// Vérifie s'il existe des catégories et qu'elles ne sont pas des erreurs WP
-if ($categories && !is_wp_error($categories)) {
-    // Crée un tableau pour stocker les ID des catégories
-    $category_ids = array();
-    
-    // Parcourt chaque catégorie pour obtenir son ID
-    foreach ($categories as $category) {
-        $category_ids[] = $category->term_id;
-    }
-
-    // Requête WP_Query pour récupérer les articles des mêmes catégories
-    $related_args = array(
-        'post_type' => 'photos', // Type de contenu personnalisé 'photos'
-        'posts_per_page' => 2,    // Nombre d'articles à afficher
-        'post_status' => 'publish',
-        'tax_query' => array(
-            array(
-                'taxonomy' => 'categorie_photo', // Taxonomie 'categorie_photo'
-                'field' => 'term_id',
-                'terms' => $category_ids,        // Utilisation des ID de catégorie récupérés
+        $current_category = get_the_terms(get_the_ID(), 'categorie'); // Obtenez la catégorie actuelle
+        $args = array(
+            'post_type' => 'photo',
+            'post__not_in' => array(get_the_ID()),
+            'posts_per_page' => 2,
+            'tax_query' => array(
+                array(
+                    'taxonomy' => 'categorie',
+                    'field' => 'id',
+                    'terms' => $current_category[0]->term_id, // Utilisez la catégorie actuelle
+                ),
             ),
-        ),
-        'post__not_in' => array(get_the_ID()), // Exclure l'article actuel
-    );
-
-    // Crée une nouvelle instance WP_Query en utilisant les arguments
-    $related_query = new WP_Query($related_args);
-
-    // Vérifie si des articles apparentés ont été trouvés
-    if ($related_query->have_posts()) :
+        );
+        $query = new WP_Query($args);
+        if ($query->have_posts()) :
+            while ($query->have_posts()) :
+                $query->the_post();
         ?>
-        <div class="related-photos">
-            <h2>Photos Apparentées</h2>
-            <ul>
-                <?php
-                // Parcourt chaque article apparenté
-                while ($related_query->have_posts()) : $related_query->the_post();
-                ?>
-                    <li>
-                        <!-- Affiche un lien vers le permalien de l'article apparenté et son titre -->
-                        <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-                        <div class="related-thumbnail">
-                            <!-- Affiche l'image à la une de l'article en utilisant la taille 'thumbnail' -->
-                            <?php the_post_thumbnail('thumbnail'); ?>
-                            <?php the_title(); ?>
+                <div class="overlay-imageSingle">
+                    <?php the_content(); ?>
+                    <div class="hoverSingle">
+                    <a href="#">
+                        <img class="full_screen" data-category="<?php echo strip_tags(get_the_term_list(get_the_ID(), 'categorie')); ?>" data-reference="<?php echo get_field('reference', get_the_ID()); ?>" data-image="<?php echo get_the_post_thumbnail_url(); ?>" src="<?php echo get_template_directory_uri(); ?>/assets/Icon_fullscreen.png" alt="full_screen">
+                    </a>                        <a href="<?php the_permalink(); ?>">
+                            <img class="eye" src="<?php echo get_template_directory_uri(); ?>/assets/Icon_eye.png" alt="eye">
+                        </a>
+                        <div class="texte">
+                        <div class="ref-box"><?php echo get_field('reference', $post->ID); ?></div>
+                        <div class="cat-box"><?php echo strip_tags(get_the_term_list($post->ID, 'categorie')); ?></div>
                         </div>
-                    </li>
-                <?php endwhile; ?>
-            </ul>
-        </div>
-        <?php
-        // Réinitialise les données de l'article après la boucle
-        wp_reset_postdata();
-    endif;
-}
-?>
+                    </div>
+                </div>
+        <?php endwhile;
+        endif;
+        wp_reset_query();
+        ?>
+
