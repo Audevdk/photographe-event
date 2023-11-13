@@ -1,22 +1,4 @@
-<?php
-        $current_category = get_the_terms(get_the_ID(), 'categorie'); // Obtenez la catégorie actuelle
-        $args = array(
-            'post_type' => 'photo',
-            'post__not_in' => array(get_the_ID()),
-            'posts_per_page' => 2,
-            'tax_query' => array(
-                array(
-                    'taxonomy' => 'categorie',
-                    'field' => 'id',
-                    'terms' => $current_category[0]->term_id, // Utilisez la catégorie actuelle
-                ),
-            ),
-        );
-        $query = new WP_Query($args);
-        if ($query->have_posts()) :
-            while ($query->have_posts()) :
-                $query->the_post();
-        ?>
+
                 <div class="overlay-imageSingle">
                     <?php the_content(); ?>
                     <div class="hoverSingle">
@@ -31,8 +13,5 @@
                         </div>
                     </div>
                 </div>
-        <?php endwhile;
-        endif;
-        wp_reset_query();
-        ?>
+        
 

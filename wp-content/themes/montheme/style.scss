@@ -54,6 +54,7 @@ main{
     display: flex;
     flex-direction: column;
     margin: 0 auto;
+    text-transform: uppercase;
 }
 #primary{
   width: 80%;
@@ -63,6 +64,7 @@ body {
   margin: auto !important;
   width: auto;
   background-color: rgb(255, 255, 255);
+  text-transform: uppercase;
 }
 
  h1 {
@@ -239,20 +241,8 @@ color:$bleufonce;
 	border-bottom: black solid 2px;
 	margin-bottom: 2.2vh;
 	margin-right: 2vw;
-	
-
     }
   
-    
-    .info-photo h1{
-	font-family: 'SpaceMono','sans-serif';
-	font-size: 4em;
-	width:26vw;
-	font-weight: 400;
-	font-style: italic;
-	line-height: 58px;
-    }
-    
     .photo-content{
 	width:50vw;
     }
@@ -262,8 +252,6 @@ color:$bleufonce;
 	object-position: right;
 	
     }
-
-
 
 .attachment-post-thumbnail.size-post-thumbnail.wp-post-image{
 	object-fit: cover;
@@ -308,6 +296,7 @@ color:$bleufonce;
    
     #photosapp{
 	display: flex;
+  justify-content: space-between;
 	
     }
     
@@ -373,6 +362,7 @@ color:$bleufonce;
 	position: relative;
 	width: auto;
 	margin-bottom: 5vh;
+  object-fit: cover!important;
 }
 
 .overlay-imageSingle .hoverSingle {
@@ -398,73 +388,159 @@ color:$bleufonce;
 	color: #ffffff;
 }
 
-.photos-acc figure {
+.galerie figure {
 	width: 42vw;
 	height: 70vh;
 	object-fit: cover;
 }
 
-.photos-acc {
+.galerie-photo {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-around;
 	width: 95vw;
 }
 
-.photos-acc figure img {
+.galerie figure img {
 	width: 42vw;
 	height: 70vh;
 	object-fit: cover;
 }
 
+  
 /*les filtres */
-.filtres {
+.filters-photos {
+  display: flex;
+  justify-content: space-between;
+  margin: 40px 140px;
+}
+
+.filters select {
+  width: 260px;
+  height: 43px;
+  border-radius: 8px;
+  border-color: #B8BBC2;
+  font-family: 'Poppins';
+  text-transform: uppercase;
+  cursor: pointer;
+  border-width: 2px;
+}
+
+#filter-date {
+  width: 260px;
+  height: 43px;
+  border-radius: 8px;
+  border-color: #B8BBC2;
+  font-family: 'Poppins';
+  text-transform: uppercase;
+  cursor: pointer;
+  border-width: 2px;
+}
+
+.filters select:hover {
+  border-color: #215AFF;
+}
+
+#filter-date:hover{
+  border-color: #215AFF;
+}
+ /*bouton charger plus */
+.load-more-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#load-more-btn {
+  margin-top: 20px;
+  width: 272px;
+  height: 50px;
+  border-radius: 2px;
+  background-color: #D8D8D8;
+  transition: transform 0.3s ease;
+  border: none;
+  font-family: 'Space_Mono';
+  margin-bottom: 50px;
+}
+
+#load-more-btn:hover {
+  background-color:black;
+  font-weight: bold;
+  transform: scale(1.1);
+  color: white;
+}
+
+
+/*overlay image*/
+.overlay-image {
+	position: relative;
+	width: auto;
 	margin-bottom: 5vh;
-	margin-left: 4vw;
-	display: flex;
-	padding: 10px;
+}
+
+.overlay-image .hover {
+	position: absolute;
+	top: 0;
+	height: 70vh;
+	width: 42vw;
+	opacity: 0;
+	/* transition: .5s ease; */
+}
+
+.overlay-image:hover .hover {
+	opacity: 1;
+	background: linear-gradient(180deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 100%);
+	margin-left: 1.5vw;
 
 }
 
-.filtres select {
-	width: 18vw;
-	height: 5vh;
-	border-radius: 8px;
-	border: solid #B8BBC2 1px;
-	font-family: 'Popins';
-	font-weight: 500;
-	font-size: 12px;
-	line-height: 18px;
-	padding: 0vw 2vw;
+.overlay-image .texte {
+	position: absolute;
+	bottom: 1vh;
+	left: 1vw;
+	font-family: 'Poppins', 'sans serif';
+	color: #ffffff;
 }
 
-.filtres div {
-	display: flex;
-	flex-direction: column;
-
+.full_screen {
+	right: 1vw;
+	position: absolute;
+	top: 1vh;
 }
 
-#formFiltre {
-	margin-left: 5.5vw;
-
+.eye {
+	position: absolute;
+	top: 45%;
+	left: 44%;
 }
 
-#triFiltre {
-	margin-left: 30vw;
+.cat-box {
+	position: absolute;
+	right: -35vw;
+	bottom: 0vw;
+}
+/*hero */
+section.hero {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 32px;
 }
 
-/*bouton pagination*/
-#load-more {
-	text-align: center;
-	background: #D8D8D8;
-	border: 0px;
-	padding: 1vh;
-	font-family: "SpaceMono", "sans serif";
-	margin: auto;
-	width: 18vw;
-	height: 5vh;
-	display: flex;
-	justify-content: center;
+.title {
+  margin: 20px auto;
+  font-size: 6em;
+  font-weight: 700;
+  font-style: italic;
+  line-height: 142px;
+  color: transparent;
+  -webkit-text-stroke: 2px;
+  -webkit-text-stroke-color: white;
+  position: absolute;
+}
 
-	align-items: center;
+.img-hero {
+  object-fit: cover;
+  width: 100%;
+  height: 962px;
 }

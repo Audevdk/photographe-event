@@ -20,13 +20,13 @@ Template Name: CPT perso photos
 
 				</div>
 				<div class="photo-content">
-					<?php the_content(); ?>
+				<?php echo the_post_thumbnail('full'); ?>
 				</div>
 			</div>
 			<div class="partie_2">
 
-				<p><h3>Cette photo vous intéresse ?</h3>
-					<input type="button" value="Contact" id="modaleContactSingle">
+				<p>Cette photo vous intéresse ?
+					<input type="button" value="CONTACT" id="modaleContactSingle">
 
 				</p>
 
@@ -44,11 +44,11 @@ Template Name: CPT perso photos
 							<div><?php echo get_the_post_thumbnail($prev_post_id); ?></div>
 						<?php
 
-						echo '<img class="flecheGauche" src="' . get_stylesheet_directory_uri() . '/assets/Line7.png" alt="fleche_gauche" ></a>';
+						echo '<img class="flecheGauche" src="' . get_stylesheet_directory_uri() . '/assets/Line6.png" alt="fleche_gauche" ></a>';
 						}
 						?>
 					</div>
-					<div class="img-card dynamic-image"><?php the_post_thumbnail(); ?></div>
+					
 					<div class="site-navigation-next">
 
 						<?php
@@ -62,7 +62,7 @@ Template Name: CPT perso photos
 							<div><?php echo get_the_post_thumbnail($next_post_id); ?></div>
 						<?php
 
-						echo '<img  src="' . get_stylesheet_directory_uri() . '/assets/Line6.png" alt="fleche_droit" ></a>';
+						echo '<img  src="' . get_stylesheet_directory_uri() . '/assets/Line7.png" alt="fleche_droit" ></a>';
 						}
 						?>
 
@@ -71,14 +71,41 @@ Template Name: CPT perso photos
 			</div>
 		<?php endwhile; ?>
 	<?php endif; ?>
+
+	
 	<div class="partie_3">
-		<h2>VOUS AIMEREZ AUSSI</h2>
+
+		<h3>VOUS AIMEREZ AUSSI</h3>
 		<div id="photosapp">
+		<?php
+        $current_category = get_the_terms(get_the_ID(), 'categorie'); // Obtenez la catégorie actuelle
+        $args = array(
+            'post_type' => 'photo',
+            'posts_per_page' => 2,
+            'post__not_in' => array(get_the_ID()),
+            'paged' => 1,
+            'tax_query' => array(
+                array(
+                    'taxonomy' => 'categorie',
+                    'field' => 'id',
+                    'terms' => $current_category[0]->term_id, // Utilisez la catégorie actuelle
+                ),
+            ),
+        );
+        $query = new WP_Query($args);
+        if ($query->have_posts()) :
+            while ($query->have_posts()) :
+                $query->the_post();
+        ?>
 			<?php get_template_part('template-parts/photo-block', get_post_format()); ?>
 		</div>
-		<a href="<?php echo home_url() ?>"><button id="lienAcc">Toutes les photos </button></a>
+		<?php endwhile;
+        endif;
+        wp_reset_query();
+        ?>
+		<a href="<?php echo home_url() ?>"><button id="lienAcc">TOUTES LES PHOTOS </button></a>
 	</div>
-
+	
 </main>
 
 <?php get_footer(); ?>
