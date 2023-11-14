@@ -448,6 +448,7 @@ label {
   border: none;
   font-family: "Space_Mono";
   margin-bottom: 50px;
+  text-transform: uppercase;
 }
 
 #load-more-btn:hover {

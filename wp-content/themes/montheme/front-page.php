@@ -31,49 +31,37 @@ get_header();
     
         <div class="filters">
 
-    <?php
-        // Récupérer les catégories de la taxonomie 'photo-categories'
-        $photo_categories = get_terms( array(
-            'taxonomy' => 'categorie',
-            'hide_empty' => true,
-        ) );
-    ?>
-    
-    <?php if (!empty($photo_categories) && !is_wp_error($photo_categories)) : ?>
         <select name="category" id="category-filter">
             <option value=""  selected>Catégories</option>
 
-            <?php foreach ($photo_categories as $category) : ?>
-            <?php if ($category->slug !== 'categories') : ?>
-                <option value="<?php echo esc_attr($category->slug); ?>">
-                    <?php echo esc_html($category->name); ?>
-                </option>
-            <?php endif; ?>
-            <?php endforeach; ?>
+            <?php
+                        $categories = get_terms(array(
+                            "taxonomy" => "categories",
+                            "hide_empty" => false,
+                        ));
+                        foreach ($categories as $categorie) {
+                            echo '<option value="' . $categorie->slug . '">' . $categorie->name . '</option>';
+                        }
+                        ?>
         </select>
-    <?php endif; ?>
+   
 
-    <?php
-        // Récupérer les termes de la taxonomie 'formats'
-        $formats = get_terms( array(
-            'taxonomy' => 'format',
-            'hide_empty' => true,
-        ) );
-    ?>
+    
 
-    <?php if (!empty($formats) && !is_wp_error($formats)) : ?>
+
         <select name="format" id="format-filter">
             <option value=""  selected>Formats</option>
-
-            <?php foreach ($formats as $format) : ?>
-            <?php if ($format->slug !== 'formats') : ?>
-                <option value="<?php echo esc_attr($format->slug); ?>">
-                    <?php echo esc_html($format->name); ?>
-                </option>
-            <?php endif; ?>
-            <?php endforeach; ?>
+<?php
+            $formats = get_terms(array(
+                            "taxonomy" => "formats",
+                            "hide_empty" => false,
+                        ));
+                        foreach ($formats as $format) {
+                            echo '<option value="' . $format->slug . '">' . $format->name . '</option>';
+                        }
+                        ?>
         </select>
-    <?php endif; ?>
+  
 
                 
             </div>

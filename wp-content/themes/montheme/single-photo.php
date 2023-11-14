@@ -13,8 +13,8 @@ Template Name: CPT perso photos
 
 					<h1 class="photo-title"><?php the_title(); ?></h1>
 					<p>Référence : <span id="ref-photo"> <?php echo get_field('reference_photo'); ?></span></p>
-					<p>Categorie : <?php echo strip_tags(get_the_term_list($post->ID, 'categorie')); ?></p>
-					<p>Format : <?php echo strip_tags(get_the_term_list($post->ID, 'format')); ?></p>
+					<p>Categorie : <?php echo strip_tags(get_the_term_list($post->ID, 'categories')); ?></p>
+					<p>Format : <?php echo strip_tags(get_the_term_list($post->ID, 'formats')); ?></p>
 					<p>Type : <?php echo get_field('type'); ?></p>
 					<p>Année :<?php the_date(' Y'); ?></p>
 
@@ -78,7 +78,7 @@ Template Name: CPT perso photos
 		<h3>VOUS AIMEREZ AUSSI</h3>
 		<div id="photosapp">
 		<?php
-        $current_category = get_the_terms(get_the_ID(), 'categorie'); // Obtenez la catégorie actuelle
+        $current_category = get_the_terms(get_the_ID(), 'categories'); // Obtenez la catégorie actuelle
         $args = array(
             'post_type' => 'photo',
             'posts_per_page' => 2,
@@ -86,7 +86,7 @@ Template Name: CPT perso photos
             'paged' => 1,
             'tax_query' => array(
                 array(
-                    'taxonomy' => 'categorie',
+                    'taxonomy' => 'categories',
                     'field' => 'id',
                     'terms' => $current_category[0]->term_id, // Utilisez la catégorie actuelle
                 ),

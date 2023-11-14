@@ -449,6 +449,7 @@ color:$bleufonce;
   display: flex;
   align-items: center;
   justify-content: center;
+  
 }
 
 #load-more-btn {
@@ -461,6 +462,7 @@ color:$bleufonce;
   border: none;
   font-family: 'Space_Mono';
   margin-bottom: 50px;
+   text-transform: uppercase;
 }
 
 #load-more-btn:hover {
